@@ -1,15 +1,12 @@
-# **MIMIC-Extract**:A Data Extraction, Preprocessing, and Representation Pipeline for MIMIC-III
+# Differential Privacy for Medical Data Publication.
 
-# About
-This repo contains code for **MIMIC-Extract**. It has been divided into the following folders:
-* Data: Locally contains the data to be extracted.
-* Notebooks: Jupyter Notebooks demonstrating test cases and usage of output data in risk and intervention prediction tasks.
-* Resources: Consist of Rohit_itemid.txt which describes the correlation of MIMIC-III item ids with those of MIMIC II as used by Rohit; itemid_to_variable_map.csv which is the main file used in data extraction - consists of groupings of item ids as well as which item ids are ready to extract; variable_ranges.csv which describes the normal variable ranges for the levels assisting in extraction of proper data. It also contains expected schema of output tables.
-* Utils: scripts and detailed instructions for running **MIMIC-Extract** data pipeline.
-* `mimic_direct_extract.py`: extraction script. 
+This repo contains the code for our BSc Thesis at KTH
+Authors: Kevin Harrison, Tomass Wilson
 
-# Paper
+## Paper
 If you use this code in your research, please cite the following publication:
+The repo that this is based on:
+https://github.com/MLforHealth/MIMIC_Extract
 
 ```
 Shirly Wang, Matthew B. A. McDermott, Geeticka Chauhan, Michael C. Hughes, Tristan Naumann, 
@@ -17,7 +14,22 @@ and Marzyeh Ghassemi. MIMIC-Extract: A Data Extraction, Preprocessing, and Repre
 Pipeline for MIMIC-III. arXiv:1907.08322. 
 ```
 
-# Pre-processed Output
+```
+Tomass Wilson, Kevin Harrison. The Impact of Differential Privacy on Length-of-Stay Prediction. There should be a KTH Diva link here
+```
+
+# Original Readme:
+## **MIMIC-Extract**:A Data Extraction, Preprocessing, and Representation Pipeline for MIMIC-III
+
+## About
+This repo contains code for **MIMIC-Extract**. It has been divided into the following folders:
+* Data: Locally contains the data to be extracted.
+* Notebooks: Jupyter Notebooks demonstrating test cases and usage of output data in risk and intervention prediction tasks.
+* Resources: Consist of Rohit_itemid.txt which describes the correlation of MIMIC-III item ids with those of MIMIC II as used by Rohit; itemid_to_variable_map.csv which is the main file used in data extraction - consists of groupings of item ids as well as which item ids are ready to extract; variable_ranges.csv which describes the normal variable ranges for the levels assisting in extraction of proper data. It also contains expected schema of output tables.
+* Utils: scripts and detailed instructions for running **MIMIC-Extract** data pipeline.
+* `mimic_direct_extract.py`: extraction script. 
+
+## Pre-processed Output
 If you simply wish to use the output of this pipeline in your own research, a preprocessed version with
 default parameters is available via gcp,
 [here](https://console.cloud.google.com/storage/browser/mimic_extract).
@@ -28,11 +40,11 @@ that are available [on physionet](https://mimic.physionet.org/gettingstarted/clo
 This output is released on an as-is basis, with no guarantees, but if you find any issues with it please let
 us know via Github issues.
 
-# Step-by-step instructions
+## Step-by-step instructions
 The first several steps are the same here as above. These instructions are tested with mimic-code at version
 762943eab64deb30bdb2abcf7db43602ccb25908
 
-## Step 0: Required software and prereqs
+### Step 0: Required software and prereqs
 
 Your local system should have the following executables on the PATH:
 
@@ -43,7 +55,7 @@ Your local system should have the following executables on the PATH:
 
 All instructions below should be executed from a terminal, with current directory set to utils/
 
-## Step 1: Create conda environment
+### Step 1: Create conda environment
 
 Next, make a new conda environment from [mimic_extract_env_py36.yml](../mimic_extract_env_py36.yml) and
 activate that environment.
@@ -73,7 +85,7 @@ The desired enviroment will be created and activated.
 Will typically take less than 5 minutes.
 Requires a good internet connection.
 
-## Step 3: Build Views for Feature Extraction
+### Step 3: Build Views for Feature Extraction
 
 Materialized views in the MIMIC PostgreSQL database will be generated.
 This includes all concept tables in [MIT-LCP Repo](https://github.com/MIT-LCP/mimic-code) and tables for
@@ -93,7 +105,7 @@ Next, you'll need to build 3 additional materialized views necessary for this pi
 schema edit permission), navigate to `utils` and run `bash postgres_make_extended_concepts.sh` followed by
 `psql -d mimic -f niv-durations.sql`.
 
-## Step 4: Set Cohort Selection and Extraction Criteria
+### Step 4: Set Cohort Selection and Extraction Criteria
 
 Next, navigate to the root directory of _this repository_, activate your conda environment and run
 `python mimic_direct_extract.py ...` with your args as desired.
@@ -126,7 +138,7 @@ By default, this step builds a dataset with all eligible patients. Sometimes, we
 To do this, just set the POP_SIZE environmental variable. For example, to build a curated dataset with only the first 1000 patients, we could do:
 
 
-# Common Errors / FAQ:
+## Common Errors / FAQ:
   1. When running `mimic_direct_extract.py`, I encounter an error of the form: 
      ```
         psycopg2.OperationalError: could not connect to server: No such file or directory
@@ -148,7 +160,7 @@ To do this, just set the POP_SIZE environmental variable. For example, to build 
      MIMIC-III concepts. Instructions for this can be found in Step 3 of either instruction set. Also see
      below for our issues specific to building concepts.
 
-## Common Errors with Building Concepts
+### Common Errors with Building Concepts
   1. When I built concepts, the system complained it didn't have permissions to edit schema mimiciii. This
      error indicates that your default psql user doesn't have authority to build concepts. You need to login
      as a higher authority postgres user to and have it run the commands. This is common in setups where
