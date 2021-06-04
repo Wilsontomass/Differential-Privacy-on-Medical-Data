@@ -1,0 +1,7 @@
+Task,Model,Epsilon,AUROC,AUPRC,Accuracy,F1,Params
+los_3,RF,Benchmark,0.736,0.685,0.695,0.595,
+los_3,LR,Benchmark,0.716,0.651,0.686,0.594,
+los_3,GRU-D,Benchmark,0.733,0.685,0.683,0.622,
+los_7,RF,Benchmark,0.764,0.195,0.923,0,
+los_7,LR,Benchmark,0.724,0.185,0.919,0.72,
+los_7,GRU-D,Benchmark,0.71,0.178,0.912,0.107,
