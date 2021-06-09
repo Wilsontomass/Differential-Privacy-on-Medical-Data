@@ -1,6 +1,6 @@
 # Differential Privacy for Medical Data Publication.
 
-This repo contains the code for our BSc Thesis at KTH
+This repo contains the code for our BSc Thesis at KTH.
 Authors: Kevin Harrison, Tomass Wilson
 
 ## Paper
